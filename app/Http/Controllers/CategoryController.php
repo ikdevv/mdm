@@ -10,8 +10,8 @@ class CategoryController extends Controller
 {
 
     public function index()
-    {
-        $categories = Category::paginate(5);
+    { 
+        $categories = Category::where('created_by', auth()->id())->paginate(5);
         return view('category.index', compact('categories'));
     }
 
@@ -40,7 +40,8 @@ class CategoryController extends Controller
         Category::create([
             'code' => $request->code,
             'name' => $request->name,
-            'status' => $request->status
+            'status' => $request->status,
+            'created_by' => auth()->user()->id
         ]);
 
         return redirect()->route('category.index')->with(

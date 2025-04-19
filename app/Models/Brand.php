@@ -10,6 +10,7 @@ class Brand extends Model
         'code',
         'name',
         'status',
+        'created_by',
     ];
 
     public function items()

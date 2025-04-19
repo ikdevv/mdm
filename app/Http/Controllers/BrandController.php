@@ -12,7 +12,8 @@ class BrandController extends Controller
 
     public function index()
     {
-        $brands = Brand::paginate(5);
+        
+        $brands = Brand::where('created_by', auth()->id())->paginate(5);
         return view('brand.index', compact('brands'));
     }
 
@@ -42,6 +43,7 @@ class BrandController extends Controller
                 'code' => $request->code,
                 'name' => $request->name,
                 'status' => $request->status,
+                'created_by' => auth()->user()->id
             ]
         );
 

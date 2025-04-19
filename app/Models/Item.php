@@ -13,6 +13,7 @@ class Item extends Model
         'name',
         'attachment',
         'status',
+        'created_by',
     ];
 
     public function brand()
@@ -23,4 +24,5 @@ class Item extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
 }

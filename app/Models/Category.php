@@ -10,10 +10,12 @@ class Category extends Model
         'code',
         'name',
         'status',
+        'created_by',
     ];
 
     public function items()
     {
         return $this->hasMany(Item::class);
     }
+
 }

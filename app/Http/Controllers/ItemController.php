@@ -13,7 +13,7 @@ class ItemController extends Controller
 
     public function index()
     {
-        $items = Item::paginate(5);
+        $items = Item::where('created_by', auth()->id())->paginate(5);
         return view('item.index', compact('items'));
     }
 
@@ -47,6 +47,7 @@ class ItemController extends Controller
                 'code' => $request->code,
                 'name' => $request->name,
                 'status' => $request->status,
+                'created_by' => auth()->user()->id
             ]
         );
 
