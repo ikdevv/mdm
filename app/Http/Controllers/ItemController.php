@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Exports\ItemsExport;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
 class ItemController extends Controller
@@ -55,7 +58,9 @@ class ItemController extends Controller
     }
 
 
-    public function show(Item $item) {}
+    public function show(Item $item)
+    {
+    }
 
 
     public function edit(Item $item)
@@ -101,4 +106,23 @@ class ItemController extends Controller
         $item->delete();
         return redirect()->route('item.index')->with('success', 'Item deleted successfully');
     }
+
+
+    public function exportExcel()
+    {
+        return Excel::download(new ItemsExport(), 'items.xlsx');
+    }
+
+    public function exportCsv()
+    {
+        return Excel::download(new ItemsExport(), 'items.csv');
+    }
+
+    public function exportPdf()
+    {
+        $items = Item::all();
+        $pdf = Pdf::loadView('exports.items_pdf', compact('items'));
+        return $pdf->download('items.pdf');
+    }
+
 }

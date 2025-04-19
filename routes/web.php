@@ -4,15 +4,16 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -26,5 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('item', ItemController::class);
 });
 
+Route::get('/items/export/excel', [ItemController::class, 'exportExcel'])->name('items.export.excel');
+Route::get('/items/export/csv', [ItemController::class, 'exportCsv'])->name('items.export.csv');
+Route::get('/items/export/pdf', [ItemController::class, 'exportPdf'])->name('ites.export.pdf');
 
 require __DIR__ . '/auth.php';
+
