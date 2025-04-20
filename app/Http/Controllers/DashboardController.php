@@ -9,7 +9,16 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $items = Item::all();
+
+        $query = Item::query();
+
+        // search by name
+        if (request('search')) {
+            $query->where('name', 'like', '%' . request('search') . '%')
+                ->orWhere('code', 'like', '%' . request('search') . '%');
+        }
+
+        $items = $query->get();
         return view('dashboard', compact('items'));
     }
 

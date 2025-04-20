@@ -24,7 +24,15 @@
                 </div>
             </div>
 
+            <div class="mt-4">
+                <form method="GET" action="#">
+                    <x-text-input name="search" placeholder="Search for items....." value="{{ request('search') }}" />
+                    <x-primary-button type="submit" class="ml-2">
+                        {{ __('Search') }}
+                    </x-primary-button>
+                </form>
 
+            </div>
             <div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 
                 @foreach ($items as $item)

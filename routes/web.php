@@ -25,11 +25,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('brand', BrandController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('item', ItemController::class);
-});
 
-Route::get('/items/export/excel', [ItemController::class, 'exportExcel'])->name('items.export.excel');
-Route::get('/items/export/csv', [ItemController::class, 'exportCsv'])->name('items.export.csv');
-Route::get('/items/export/pdf', [ItemController::class, 'exportPdf'])->name('ites.export.pdf');
+    Route::get('/items/export/excel', [ItemController::class, 'exportExcel'])->name('items.export.excel');
+    Route::get('/items/export/csv', [ItemController::class, 'exportCsv'])->name('items.export.csv');
+    Route::get('/items/export/pdf', [ItemController::class, 'exportPdf'])->name('ites.export.pdf');
+});
 
 require __DIR__ . '/auth.php';
 
